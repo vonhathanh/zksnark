@@ -18,7 +18,7 @@ class Group:
         self.operations = operations
 
     def encrypt(self, x: int) -> int:
-        return int(math.pow(self.g, x)) % self.p
+        return self.g**x % self.p
 
     def multi(self, a: int, b: int) -> int:
         return self.encrypt(a*b) % self.p
@@ -35,7 +35,16 @@ def test_add():
     print(group.add(8, 2))
 
 
+def test_multi():
+    group = Group(7, 5, ["+", "*"])
+    print(group.multi(3, 2))
+    print(group.multi(2, 3))
+    print(group.multi(1, 1))
+    print(group.multi(8, 2))
+
+
 if __name__ == '__main__':
     test_add()
+    test_multi()
 
 
