@@ -1,28 +1,27 @@
 import math
-from group import Group
+from group import G
 
 
 class Polynomial:
     def __init__(self, coefficient: list[float]):
         self.coefficient = coefficient
-        self.group = Group(7, 5, ["+", "*"])
 
     def evaluate_step_by_step(self, x: float) -> float:
         # NOTE: this implement won't work with negative exponent
         result = 1
         polynomial = [0]*len(self.coefficient)
         for i, coeff in enumerate(self.coefficient):
-            polynomial[i] = self.group.encrypt(x**i*self.coefficient[i])
+            polynomial[i] = G.encrypt(x**i*self.coefficient[i])
             result *= polynomial[i]
-        return result % self.group.p
+        return result % G.p
 
-    def evaluate(self, x: float) -> float:
-        # best implementation at the moment, the for loop can be improved, but we rather let it there for some
+    def evaluate(self, x: float, need_encryption: bool = True) -> float:
+        # best implementation at the moment, the for loop can be improved, but we rather let it here for some
         # perfectionist to do that
         s = 0
         for i, coeff in enumerate(self.coefficient):
             s += coeff * x**i
-        return self.group.encrypt(s)
+        return G.encrypt(s) if need_encryption else s
 
 
 def test_polynomial():
