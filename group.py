@@ -1,9 +1,7 @@
-import math
-
-
-class EncryptedUnit:
-    def __init__(self, value: int):
-        self.value = value
+# default prime number
+PrimeNumber = 13
+# default generator
+Generator = 10
 
 
 class Group:
@@ -42,6 +40,8 @@ def test_multi():
     print(group.multi(1, 1))
     print(group.multi(8, 2))
 
+
+G = Group(PrimeNumber, Generator)
 
 if __name__ == '__main__':
     test_add()
